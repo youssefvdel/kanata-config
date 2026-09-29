@@ -21,6 +21,26 @@
   ;; Layer switches
   sw_layer1 (layer-while-held layer_1)
 
+  ;; Halmak Home Row Modifiers (GACS: Meta, Alt, Ctrl, Shift)
+  hs (tap-hold 150 250 s lmeta)
+  hh (tap-hold 150 250 h lalt)
+  hn (tap-hold 150 250 n lctl)
+  ht (tap-hold 150 250 t lsft)
+  ha (tap-hold 150 250 a rsft)
+  he (tap-hold 150 250 e rctl)
+  ho (tap-hold 150 250 o ralt)
+  hi (tap-hold 150 250 i rmeta)
+
+  ;; QWERTY Home Row Modifiers (GACS: Meta, Alt, Ctrl, Shift)
+  qa (tap-hold 150 250 a lmeta)
+  qs (tap-hold 150 250 s lalt)
+  qd (tap-hold 150 250 d lctl)
+  qf (tap-hold 150 250 f lsft)
+  qj (tap-hold 150 250 j rsft)
+  qk (tap-hold 150 250 k rctl)
+  ql (tap-hold 150 250 l ralt)
+  qsemi (tap-hold 150 250 ; rmeta)
+
   ;; Symbols
   lb [
   rb ]
@@ -52,23 +72,23 @@
 )
 
 ;; ───────────────────────────────────────────────────────────
-;;  DEFAULT LAYER: HALMAK
+;;  DEFAULT LAYER: HALMAK (with Home Row Mods)
 ;; ───────────────────────────────────────────────────────────
 (deflayer halmak
   @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab        w    l    r    b    z    ;    q    u    d    j    [    ]    \
-  @sw_layer1 s    h    n    t    ,    .    a    e    o    i    '    ret
+  @sw_layer1 @hs  @hh  @hn  @ht  ,    .    @ha  @he  @ho  @hi  '    ret
   lsft       f    m    v    c    /    g    p    x    k    y    rsft
   lctl       lmet lalt           spc            ralt rmet rctl
 )
 
 ;; ───────────────────────────────────────────────────────────
-;;  MOMENTARY LAYER: QWERTY (active while ` is held)
+;;  MOMENTARY LAYER: QWERTY (with Home Row Mods)
 ;; ───────────────────────────────────────────────────────────
 (deflayer qwerty
   grv        1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab        q    w    e    r    t    y    u    i    o    p    [    ]    \
-  @sw_layer1 a    s    d    f    g    h    j    k    l    ;    '    ret
+  @sw_layer1 @qa  @qs  @qd  @qf  g    h    @qj  @qk  @ql  @qsemi '   ret
   lsft       z    x    c    v    b    n    m    ,    .    /    rsft
   lctl       lmet lalt           spc            ralt rmet rctl
 )
