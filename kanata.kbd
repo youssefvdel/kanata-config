@@ -15,8 +15,6 @@
 ;;  ALIASES
 ;; ───────────────────────────────────────────────────────────
 (defalias
-  ;; ` (grave): tap = grave accent, hold = momentary QWERTY layer
-  grl (tap-hold 200 200 grv (layer-toggle qwerty))
 
   ;; Layer switches
   sw_layer1 (layer-while-held layer_1)
@@ -75,23 +73,13 @@
 ;;  DEFAULT LAYER: HALMAK (with Home Row Mods)
 ;; ───────────────────────────────────────────────────────────
 (deflayer halmak
-  @grl       1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab        w    l    r    b    z    ;    q    u    d    j    [    ]    \
+  grv       1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab        w    l    r    b    z    ;    q    u    d    j    [    ]    caps
   @sw_layer1 @hs  @hh  @hn  @ht  ,    .    @ha  @he  @ho  @hi  '    ret
   lsft       f    m    v    c    /    g    p    x    k    y    rsft
   lctl       lmet lalt           spc            ralt rmet rctl
 )
 
-;; ───────────────────────────────────────────────────────────
-;;  MOMENTARY LAYER: QWERTY (with Home Row Mods)
-;; ───────────────────────────────────────────────────────────
-(deflayer qwerty
-  grv        1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab        q    w    e    r    t    y    u    i    o    p    [    ]    \
-  @sw_layer1 @qa  @qs  @qd  @qf  g    h    @qj  @qk  @ql  @qsemi '   ret
-  lsft       z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl       lmet lalt           spc            ralt rmet rctl
-)
 
 ;; ───────────────────────────────────────────────────────────
 ;;  SYMBOL & NAVIGATION LAYER (hold CapsLock)
