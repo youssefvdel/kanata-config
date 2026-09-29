@@ -1,0 +1,69 @@
+;; ============================================================
+;;  HALMAK layout for kanata - Windows, user level
+;; ============================================================
+;;
+;; Converts a standard US QWERTY keyboard into HALMAK:
+;;
+;;   physical (QWERTY)         ->  output (HALMAK)
+;;   q w e r t y u i o p       ->  w l r b z ; q u d j
+;;   a s d f g h j k l ;       ->  s h n t , . a e o i
+;;   z x c v b n m , . /       ->  f m v c / g p x k y
+;;
+;; Everything else (number row, [ ] \ ' backspace, modifiers,
+;; F-row, arrows, numpad...) is left untouched.
+;;
+;; Bonus: HOLD the ` key (grave, top-left) for a momentary QWERTY
+;; layer - handy for games, password fields, or while learning.
+;; Release it to go back to HALMAK.
+;;
+;; ---- Windows user-level usage ----
+;; Use the regular kanata.exe from:
+;;   https://github.com/jtroo/kanata/releases
+;; (NOT the "wintercept" build - that one needs admin rights and
+;; the Interception driver. The default build uses low-level
+;; keyboard hooks and runs fine as a normal user.)
+;;
+;;   kanata.exe --cfg halmak.kbd
+;;
+;; Keep your Windows keyboard language/layout set to US QWERTY.
+;; To quit kanata: press  LeftCtrl + Space + Escape  together
+;; (physical keys), or just close the terminal window.
+;; ============================================================
+
+(defcfg
+  ;; Nothing is required for the default user-level Windows setup.
+  ;; Only uncomment the line below if AltGr (right-alt) misbehaves
+  ;; on an international layout:
+  ;; windows-altgr cancel-lctl-press
+)
+
+(defsrc
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+;; ` (grave): tap = grave accent, hold = momentary QWERTY layer
+(defalias
+  grl (tap-hold 200 200 grv (layer-toggle qwerty))
+)
+
+;; Default layer: HALMAK
+(deflayer halmak
+  @grl 1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  w    l    r    b    z    ;    q    u    d    j    [    ]    \
+  caps s    h    n    t    ,    .    a    e    o    i    '    ret
+  lsft f    m    v    c    /    g    p    x    k    y    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
+
+;; Momentary layer: plain QWERTY (active while ` is held)
+(deflayer qwerty
+  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
+)
