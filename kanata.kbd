@@ -4,22 +4,19 @@
 )
 
 (defsrc
-  grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab  q    w    e    r    t    y    u    i    o    p    [    ]    \
-  caps a    s    d    f    g    h    j    k    l    ;    '    ret
-  lsft z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl lmet lalt           spc            ralt rmet rctl
+   caps \
+   q    w    e    r    t    y    u    i    o    p
+   a    s    d    f    g    h    j    k    l    ;
+   z    x    c    v    b    n    m    ,    .    /
+                       spc         
 )
 
-;; ───────────────────────────────────────────────────────────
-;;  ALIASES
-;; ───────────────────────────────────────────────────────────
 (defalias
 
   ;; Layer switches
   sw_layer1 (layer-while-held layer_1)
 
-  ;; Halmak Home Row Modifiers (GACS: Meta, Alt, Ctrl, Shift)
+
   hs (tap-hold 150 250 s lmeta)
   hh (tap-hold 150 250 h lalt)
   hn (tap-hold 150 250 n lctl)
@@ -28,16 +25,6 @@
   he (tap-hold 150 250 e rctl)
   ho (tap-hold 150 250 o ralt)
   hi (tap-hold 150 250 i rmeta)
-
-  ;; QWERTY Home Row Modifiers (GACS: Meta, Alt, Ctrl, Shift)
-  qa (tap-hold 150 250 a lmeta)
-  qs (tap-hold 150 250 s lalt)
-  qd (tap-hold 150 250 d lctl)
-  qf (tap-hold 150 250 f lsft)
-  qj (tap-hold 150 250 j rsft)
-  qk (tap-hold 150 250 k rctl)
-  ql (tap-hold 150 250 l ralt)
-  qsemi (tap-hold 150 250 ; rmeta)
 
   ;; Symbols
   lb [
@@ -69,25 +56,18 @@
   pgdn_ (tap-hold 150 250 pgdn end)
 )
 
-;; ───────────────────────────────────────────────────────────
-;;  DEFAULT LAYER: HALMAK (with Home Row Mods)
-;; ───────────────────────────────────────────────────────────
 (deflayer halmak
-  grv       1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab        w    l    r    b    z    ;    q    u    d    j    [    ]    caps
-  @sw_layer1 @hs  @hh  @hn  @ht  ,    .    @ha  @he  @ho  @hi  '    ret
-  lsft       f    m    v    c    /    g    p    x    k    y    rsft
-  lctl       lmet lalt           spc            ralt rmet rctl
+ @sw_layer1 caps
+   w    l    r    b    z    ;    q    u    d    j
+   @hs  @hh  @hn  @ht  ,    .    @ha  @he  @ho  @hi
+   f    m    v    c    /    g    p    x    k    y
+                       spc
 )
 
-
-;; ───────────────────────────────────────────────────────────
-;;  SYMBOL & NAVIGATION LAYER (hold CapsLock)
-;; ───────────────────────────────────────────────────────────
 (deflayer layer_1
-  _    _    _    _    _    _    _    _    _    _    _    _    _    _
-  _    [    ]    @lc  @rc  _    @amp @ast up   @bkslash @or _    _    caps
-  _    @lt  @gt  @lp  @rp  _    @eq  left down right bspc '    ret
-  _    del  @hash @at  @excl esc @plus @minus @undsco @pgup_ @pgdn_ _
-  _    _    _              ret            _    _    _
+ _    caps
+   [    ]    @lc  @rc  _    @amp @ast up   @bkslash @or
+   @lt  @gt  @lp  @rp  _    @eq  left down right bspc
+   del  @hash @at  @excl esc  @plus @minus @undsco @pgup_ @pgdn_
+                       ret
 )
