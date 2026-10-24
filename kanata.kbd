@@ -1,73 +1,89 @@
+;; Qwerty Configuration
+
 (defcfg
   concurrent-tap-hold yes
   process-unmapped-keys yes
 )
 
 (defsrc
-   caps \
-   q    w    e    r    t    y    u    i    o    p
-   a    s    d    f    g    h    j    k    l    ;
-   z    x    c    v    b    n    m    ,    .    /
-                       spc         
+  caps  \     ins
+  q     w     e     r     t     y     u     i     o     p
+  a     s     d     f     g     h     j     k     l     ;
+  z     x     c     v     b     n     m     ,     .     /
+                         spc
+)
+
+(defvar
+  ;; Timing for tap-hold dual-role keys (in milliseconds)
+  tap-time  150
+  hold-time 250
 )
 
 (defalias
+  ;; --- Layer Toggles ---
+  nav-sym    (layer-while-held nav-sym)
+  tog-bypass (layer-switch bypass)  ;; Turns Kanata OFF (normal keyboard)
+  tog-base   (layer-switch base)    ;; Turns Kanata ON
 
-  ;; Layer switches
-  sw_layer1 (layer-while-held layer_1)
+  ;; --- Home Row Mods (Base Layer) ---
+  ;; Format: <tap-key>-<held-modifier>
+  a-met   (tap-hold $tap-time $hold-time a lmeta)
+  s-alt   (tap-hold $tap-time $hold-time s lalt)
+  d-ctl   (tap-hold $tap-time $hold-time d lctl)
+  f-sft   (tap-hold $tap-time $hold-time f lsft)
+  j-sft   (tap-hold $tap-time $hold-time j rsft)
+  k-ctl   (tap-hold $tap-time $hold-time k rctl)
+  l-alt   (tap-hold $tap-time $hold-time l ralt)
+  scl-met (tap-hold $tap-time $hold-time ; rmeta)
 
+  ;; --- Dual-Role Modifiers on Nav/Sym Layer (Mirrors Base Layer HRM) ---
+  lt-met  (tap-hold $tap-time $hold-time S-, lmeta)
+  gt-alt  (tap-hold $tap-time $hold-time S-. lalt)
+  lp-ctl  (tap-hold $tap-time $hold-time S-9 lctl)
+  rp-sft  (tap-hold $tap-time $hold-time S-0 lsft)
 
-  hs (tap-hold 150 270 s lmeta)
-  hh (tap-hold 150 270 h lalt)
-  hn (tap-hold 150 270 n lctl)
-  ht (tap-hold 150 270 t lsft)
-  ha (tap-hold 150 270 a rsft)
-  he (tap-hold 150 270 e rctl)
-  ho (tap-hold 150 270 o ralt)
-  hi (tap-hold 150 270 i rmeta)
+  ;; --- Dual-Role Navigation ---
+  pgup-home (tap-hold $tap-time $hold-time pgup home)
+  pgdn-end  (tap-hold $tap-time $hold-time pgdn end)
 
-  ;; Symbols
-  lb [
-  rb ]
-  lc S-[
-  rc S-]
-  rp (tap-hold 150 270 S-0 lsft)
-  lp (tap-hold 150 270 S-9 lctl)
-  gt (tap-hold 150 270 S-. lalt)
-  lt (tap-hold 150 270 S-, lmeta)
-  semi ;
-  colon S-;
-  comma ,
-  dot .
-  slash /
-  eq =
-  plus S-=
-  minus -
-  undsco S--
-  ast S-8
-  amp S-7
-  excl S-1
-  quest S-/
-  at S-2
-  hash S-3
-  bkslash \
-  or S-\
-  pgup_ (tap-hold 150 270 pgup home)
-  pgdn_ (tap-hold 150 270 pgdn end)
+  ;; --- Symbols ---
+  lbrace S-[   ;; {
+  rbrace S-]   ;; }
+  amp    S-7   ;; &
+  ast    S-8   ;; *
+  bsls   \     ;; \
+  pipe   S-\   ;; |
+  eq     =     ;; =
+  hash   S-3   ;; #
+  at     S-2   ;; @
+  excl   S-1   ;; !
+  plus   S-=   ;; +
+  minus  -     ;; -
+  under  S--   ;; _
+  qmk    S-/   ;; ?
 )
 
-(deflayer halmak
- @sw_layer1 caps
-   w    l    r    b    z    ;    q    u    d    j
-   @hs  @hh  @hn  @ht  ,    .    @ha  @he  @ho  @hi
-   f    m    v    c    /    g    p    x    k    y
-                       spc
+(deflayer base
+  @nav-sym caps  @tog-bypass
+  _     _     _     _     _     _     _     _     _     _
+  @a-met @s-alt @d-ctl @f-sft _     _     @j-sft @k-ctl @l-alt @scl-met
+  _     _     _     _     _     _     _     _     _     _
+                         _
 )
 
-(deflayer layer_1
- _    caps
-   [    ]    @lc  @rc  _    @amp @ast up   @bkslash @or
-   @lt  @gt  @lp  @rp  _    @eq  left down right bspc
-   del  @hash @at  @excl esc  @plus @minus @undsco @pgup_ @pgdn_
-                       ret
+(deflayer nav-sym
+  _     caps  @tog-bypass
+  [     ]     @lbrace @rbrace _     @amp  @ast  up    @bsls @pipe
+  @lt-met @gt-alt @lp-ctl @rp-sft _     @eq   left  down  right bspc
+  del   @hash @at   @excl esc   @plus @minus @under @pgup-home @pgdn-end
+                         @qmk
+)
+
+;; Bypass / Gaming layer: All keys are raw standard keys (no HRM / no delays)
+(deflayer bypass
+  _     _     @tog-base
+  _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _
+                         _
 )
